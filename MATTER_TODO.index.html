@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="da">
+<link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Min To-Do App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    #taskInput {
+      width: 70%;
+    }
+
+    #addButton {
+      width: 28%;
+      margin-left: 2%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 0.5rem;
+      background: #fff;
+      margin-top: 0.5rem;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+
+    li.done {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 Min To-Do Liste</h1>
+  <input type="text" id="taskInput" placeholder="Skriv en opgave">
+  <button id="addButton">Tilføj</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    const input = document.getElementById('taskInput');
+    const button = document.getElementById('addButton');
+    const list = document.getElementById('taskList');
+
+    button.onclick = () => {
+      const text = input.value.trim();
+      if (text !== '') {
+        const li = document.createElement('li');
+        li.textContent = text;
+        li.onclick = () => li.classList.toggle('done');
+        list.appendChild(li);
+        input.value = '';
+      }
+    };
+  </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker registreret!'));
+  }
+</script>
+</body>
+</html>
